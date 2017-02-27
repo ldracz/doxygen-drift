@@ -1,0 +1,192 @@
+\hypertarget{oculus-control_8cpp}{}\section{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/control.cpp File Reference}
+\label{oculus-control_8cpp}\index{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/control.\+cpp@{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/control.\+cpp}}
+{\ttfamily \#include $<$ros/console.\+h$>$}\\*
+{\ttfamily \#include $<$tf/transform\+\_\+broadcaster.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/\+Pose\+Stamped.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/\+Quaternion.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$thread$>$}\\*
+{\ttfamily \#include $<$chrono$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$termios.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Core$>$}\\*
+{\ttfamily \#include $<$mav\+\_\+msgs/conversions.\+h$>$}\\*
+{\ttfamily \#include $<$mav\+\_\+msgs/default\+\_\+topics.\+h$>$}\\*
+{\ttfamily \#include $<$ros/ros.\+h$>$}\\*
+{\ttfamily \#include $<$std\+\_\+srvs/\+Empty.\+h$>$}\\*
+{\ttfamily \#include $<$trajectory\+\_\+msgs/\+Multi\+D\+O\+F\+Joint\+Trajectory.\+h$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+Include dependency graph for oculus-\/control.cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oculus-control_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Vector3d \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\+\_\+position} (0.\+0, 0.\+0, 1.\+0)
+\begin{DoxyCompactList}\small\item\em The position the drone is expected to go to. \end{DoxyCompactList}\item 
+void \hyperlink{oculus-control_8cpp_a570d60ef77ebe021853fd13c864ab969}{orientation\+Callback} (const geometry\+\_\+msgs\+::\+Quaternion\+::\+Const\+Ptr msg)
+\begin{DoxyCompactList}\small\item\em Callback Function for Oculus Orientation Information. \end{DoxyCompactList}\item 
+int \hyperlink{oculus-control_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+ros\+::\+Publisher \hyperlink{oculus-control_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{pub\+\_\+traj}
+\begin{DoxyCompactList}\small\item\em Publisher for the desired trajectory of the drone. \end{DoxyCompactList}\item 
+trajectory\+\_\+msgs\+::\+Multi\+D\+O\+F\+Joint\+Trajectory \hyperlink{oculus-control_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\+\_\+msg}
+\begin{DoxyCompactList}\small\item\em The message variable that is published. \end{DoxyCompactList}\item 
+float \hyperlink{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed} = 0.\+1
+\begin{DoxyCompactList}\small\item\em The speed at which the drone can move at. \end{DoxyCompactList}\item 
+float \hyperlink{oculus-control_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninety\+Deg\+In\+Rad} = 1.\+5708
+\begin{DoxyCompactList}\small\item\em The value 90 degrees holds in radians (rounded) \end{DoxyCompactList}\item 
+double \hyperlink{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\+\_\+yaw} = 0.\+0
+\begin{DoxyCompactList}\small\item\em The yaw rotation expected of the drone to turn to (in radians) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{oculus-\/control.\+cpp@{oculus-\/control.\+cpp}!desired\+\_\+position@{desired\+\_\+position}}
+\index{desired\+\_\+position@{desired\+\_\+position}!oculus-\/control.\+cpp@{oculus-\/control.\+cpp}}
+\subsubsection[{\texorpdfstring{desired\+\_\+position(0.\+0, 0.\+0, 1.\+0)}{desired_position(0.0, 0.0, 1.0)}}]{\setlength{\rightskip}{0pt plus 5cm}Eigen\+::\+Vector3d desired\+\_\+position (
+\begin{DoxyParamCaption}
+\item[{0.}]{0, }
+\item[{0.}]{0, }
+\item[{1.}]{0}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{}\label{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}
+
+
+The position the drone is expected to go to. 
+
+\index{oculus-\/control.\+cpp@{oculus-\/control.\+cpp}!main@{main}}
+\index{main@{main}!oculus-\/control.\+cpp@{oculus-\/control.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-control_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{oculus-control_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Main function. 
+
+That setups up the subscription to the oculus\textquotesingle{}s orientation and the publisher to the firefly drone. 
+\begin{DoxyCode}
+89 \{
+90   ros::init(argc, argv, \textcolor{stringliteral}{"oculus\_control"});
+91   ros::NodeHandle nh;
+92 
+93   \hyperlink{oculus-control_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\_msg}.header.stamp = ros::Time::now();
+94 
+95   ros::Subscriber sub\_orient = nh.subscribe(\textcolor{stringliteral}{"/oculus/orientation"}, 1, 
+      \hyperlink{oculus-control_8cpp_a570d60ef77ebe021853fd13c864ab969}{orientationCallback});
+96 
+97   \hyperlink{oculus-control_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{pub\_traj} = nh.advertise<trajectory\_msgs::MultiDOFJointTrajectory>(\textcolor{stringliteral}{"/firefly/command/trajectory"}, 
+      1);
+98 
+99   ros::Rate loop\_rate(5);
+100   \textcolor{keywordflow}{while} (nh.ok()) \{
+101 
+102     ros::spinOnce();
+103     loop\_rate.sleep();
+104   \}
+105 \}
+\end{DoxyCode}
+\index{oculus-\/control.\+cpp@{oculus-\/control.\+cpp}!orientation\+Callback@{orientation\+Callback}}
+\index{orientation\+Callback@{orientation\+Callback}!oculus-\/control.\+cpp@{oculus-\/control.\+cpp}}
+\subsubsection[{\texorpdfstring{orientation\+Callback(const geometry\+\_\+msgs\+::\+Quaternion\+::\+Const\+Ptr msg)}{orientationCallback(const geometry_msgs::Quaternion::ConstPtr msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void orientation\+Callback (
+\begin{DoxyParamCaption}
+\item[{const geometry\+\_\+msgs\+::\+Quaternion\+::\+Const\+Ptr}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-control_8cpp_a570d60ef77ebe021853fd13c864ab969}{}\label{oculus-control_8cpp_a570d60ef77ebe021853fd13c864ab969}
+
+
+Callback Function for Oculus Orientation Information. 
+
+The orientation information is translated into a desired trajectory that is published to the drone.
+
+Tilting in the y-\/axis when past a threshold will turn the drone left or right. Tilting in the x-\/axis when past a threshold will move the drone forward based on the current orientation of the drone. Tilting in the z-\/axis when past a threshold will move the drone up and down.
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & The orientation quaternion that provides the x,y,z,w orientation information of the oculus \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+52 \{
+53   ROS\_INFO(\textcolor{stringliteral}{"Callback Success"});
+54 
+55   \textcolor{keywordflow}{if} (msg->y < -0.2) \{
+56     \hyperlink{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} = \hyperlink{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} - \hyperlink{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed};
+57   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (msg->y > 0.2) \{
+58     \hyperlink{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} = \hyperlink{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} + \hyperlink{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed};
+59   \}
+60 
+61   \textcolor{keywordflow}{if} (msg->x < -0.2) \{
+62     \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() = \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() + 
+      \hyperlink{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*cos(\hyperlink{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+63     \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() = \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() + 
+      \hyperlink{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*sin(\hyperlink{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+64   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (msg->x > 0.2) \{
+65     \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() = \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() - 
+      \hyperlink{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*cos(\hyperlink{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+66     \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() = \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() - 
+      \hyperlink{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*sin(\hyperlink{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+67   \}
+68 
+69   \textcolor{keywordflow}{if} (msg->z < -0.25) \{
+70     \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.z() = \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.z() + 
+      \hyperlink{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed};
+71   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (msg->z > 0.25) \{
+72     \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.z() = \hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.z() - 
+      \hyperlink{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed};
+73   \}
+74 
+75   mav\_msgs::msgMultiDofJointTrajectoryFromPositionYaw(\hyperlink{oculus-control_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position},
+76       \hyperlink{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}, &\hyperlink{oculus-control_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\_msg});
+77   \hyperlink{oculus-control_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{pub\_traj}.publish(\hyperlink{oculus-control_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\_msg});
+78 
+79 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{oculus-\/control.\+cpp@{oculus-\/control.\+cpp}!desired\+\_\+yaw@{desired\+\_\+yaw}}
+\index{desired\+\_\+yaw@{desired\+\_\+yaw}!oculus-\/control.\+cpp@{oculus-\/control.\+cpp}}
+\subsubsection[{\texorpdfstring{desired\+\_\+yaw}{desired_yaw}}]{\setlength{\rightskip}{0pt plus 5cm}double desired\+\_\+yaw = 0.\+0}\hypertarget{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}{}\label{oculus-control_8cpp_a03a69ef33d756512293e67791ab5f265}
+
+
+The yaw rotation expected of the drone to turn to (in radians) 
+
+\index{oculus-\/control.\+cpp@{oculus-\/control.\+cpp}!ninety\+Deg\+In\+Rad@{ninety\+Deg\+In\+Rad}}
+\index{ninety\+Deg\+In\+Rad@{ninety\+Deg\+In\+Rad}!oculus-\/control.\+cpp@{oculus-\/control.\+cpp}}
+\subsubsection[{\texorpdfstring{ninety\+Deg\+In\+Rad}{ninetyDegInRad}}]{\setlength{\rightskip}{0pt plus 5cm}float ninety\+Deg\+In\+Rad = 1.\+5708}\hypertarget{oculus-control_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{}\label{oculus-control_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}
+
+
+The value 90 degrees holds in radians (rounded) 
+
+\index{oculus-\/control.\+cpp@{oculus-\/control.\+cpp}!pub\+\_\+traj@{pub\+\_\+traj}}
+\index{pub\+\_\+traj@{pub\+\_\+traj}!oculus-\/control.\+cpp@{oculus-\/control.\+cpp}}
+\subsubsection[{\texorpdfstring{pub\+\_\+traj}{pub_traj}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Publisher pub\+\_\+traj}\hypertarget{oculus-control_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{}\label{oculus-control_8cpp_a92b67ae724bc0d23b8e85e92e89403df}
+
+
+Publisher for the desired trajectory of the drone. 
+
+\index{oculus-\/control.\+cpp@{oculus-\/control.\+cpp}!speed@{speed}}
+\index{speed@{speed}!oculus-\/control.\+cpp@{oculus-\/control.\+cpp}}
+\subsubsection[{\texorpdfstring{speed}{speed}}]{\setlength{\rightskip}{0pt plus 5cm}float speed = 0.\+1}\hypertarget{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{}\label{oculus-control_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}
+
+
+The speed at which the drone can move at. 
+
+\index{oculus-\/control.\+cpp@{oculus-\/control.\+cpp}!traj\+\_\+msg@{traj\+\_\+msg}}
+\index{traj\+\_\+msg@{traj\+\_\+msg}!oculus-\/control.\+cpp@{oculus-\/control.\+cpp}}
+\subsubsection[{\texorpdfstring{traj\+\_\+msg}{traj_msg}}]{\setlength{\rightskip}{0pt plus 5cm}trajectory\+\_\+msgs\+::\+Multi\+D\+O\+F\+Joint\+Trajectory traj\+\_\+msg}\hypertarget{oculus-control_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{}\label{oculus-control_8cpp_a090c0766fbb77862dd8cc0cca99d688b}
+
+
+The message variable that is published. 
+

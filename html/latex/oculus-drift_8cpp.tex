@@ -1,0 +1,98 @@
+\hypertarget{oculus-drift_8cpp}{}\section{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/drift.cpp File Reference}
+\label{oculus-drift_8cpp}\index{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/drift.\+cpp@{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/drift.\+cpp}}
+{\ttfamily \#include $<$ros/ros.\+h$>$}\\*
+{\ttfamily \#include $<$image\+\_\+transport/image\+\_\+transport.\+h$>$}\\*
+{\ttfamily \#include $<$opencv2/highgui/highgui.\+hpp$>$}\\*
+{\ttfamily \#include $<$cv\+\_\+bridge/cv\+\_\+bridge.\+h$>$}\\*
+Include dependency graph for oculus-\/drift.cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oculus-drift_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{oculus-drift_8cpp_accfc2045f699b2d8782deca8e1d971cf}{image\+Left\+Callback} (const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&msg)
+\item 
+void \hyperlink{oculus-drift_8cpp_a2bee7d800dfae62103d7aaa2e0961787}{image\+Right\+Callback} (const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&msg)
+\item 
+int \hyperlink{oculus-drift_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+image\+\_\+transport\+::\+Publisher \hyperlink{oculus-drift_8cpp_a1d96cf0c556aa6b5ba7b3b7ad43ca252}{pub\+\_\+left}
+\item 
+image\+\_\+transport\+::\+Publisher \hyperlink{oculus-drift_8cpp_a69feb6a1df472e1ccf35b35d4f63edd2}{pub\+\_\+right}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{oculus-\/drift.\+cpp@{oculus-\/drift.\+cpp}!image\+Left\+Callback@{image\+Left\+Callback}}
+\index{image\+Left\+Callback@{image\+Left\+Callback}!oculus-\/drift.\+cpp@{oculus-\/drift.\+cpp}}
+\subsubsection[{\texorpdfstring{image\+Left\+Callback(const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&msg)}{imageLeftCallback(const sensor_msgs::ImageConstPtr &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void image\+Left\+Callback (
+\begin{DoxyParamCaption}
+\item[{const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-drift_8cpp_accfc2045f699b2d8782deca8e1d971cf}{}\label{oculus-drift_8cpp_accfc2045f699b2d8782deca8e1d971cf}
+
+\begin{DoxyCode}
+10 \{
+11   \hyperlink{oculus-drift_8cpp_a1d96cf0c556aa6b5ba7b3b7ad43ca252}{pub\_left}.publish(msg);
+12 \}
+\end{DoxyCode}
+\index{oculus-\/drift.\+cpp@{oculus-\/drift.\+cpp}!image\+Right\+Callback@{image\+Right\+Callback}}
+\index{image\+Right\+Callback@{image\+Right\+Callback}!oculus-\/drift.\+cpp@{oculus-\/drift.\+cpp}}
+\subsubsection[{\texorpdfstring{image\+Right\+Callback(const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&msg)}{imageRightCallback(const sensor_msgs::ImageConstPtr &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void image\+Right\+Callback (
+\begin{DoxyParamCaption}
+\item[{const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-drift_8cpp_a2bee7d800dfae62103d7aaa2e0961787}{}\label{oculus-drift_8cpp_a2bee7d800dfae62103d7aaa2e0961787}
+
+\begin{DoxyCode}
+15 \{
+16   \hyperlink{oculus-drift_8cpp_a69feb6a1df472e1ccf35b35d4f63edd2}{pub\_right}.publish(msg);
+17 \}
+\end{DoxyCode}
+\index{oculus-\/drift.\+cpp@{oculus-\/drift.\+cpp}!main@{main}}
+\index{main@{main}!oculus-\/drift.\+cpp@{oculus-\/drift.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-drift_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{oculus-drift_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+\begin{DoxyCode}
+22 \{
+23   ros::init(argc, argv, \textcolor{stringliteral}{"oculus\_drift"});
+24   ros::NodeHandle nh;
+25   image\_transport::ImageTransport it(nh);
+26   \hyperlink{oculus-drift_8cpp_a1d96cf0c556aa6b5ba7b3b7ad43ca252}{pub\_left} = it.advertise(\textcolor{stringliteral}{"left/image\_raw"}, 1);
+27   \hyperlink{oculus-drift_8cpp_a69feb6a1df472e1ccf35b35d4f63edd2}{pub\_right} = it.advertise(\textcolor{stringliteral}{"right/image\_raw"}, 1);
+28   image\_transport::Subscriber sub\_left = it.subscribe(\textcolor{stringliteral}{"/firefly/vi\_sensor/left/image\_raw"}, 1, 
+      \hyperlink{oculus-drift_8cpp_accfc2045f699b2d8782deca8e1d971cf}{imageLeftCallback});
+29   image\_transport::Subscriber sub\_right = it.subscribe(\textcolor{stringliteral}{"/firefly/vi\_sensor/right/image\_raw"}, 1, 
+      \hyperlink{oculus-drift_8cpp_a2bee7d800dfae62103d7aaa2e0961787}{imageRightCallback});
+30   cv::Mat image = cv::imread(argv[1], CV\_LOAD\_IMAGE\_COLOR);
+31   cv::waitKey(30);
+32 
+33   ros::Rate loop\_rate(5);
+34   \textcolor{keywordflow}{while} (nh.ok()) \{
+35 
+36     ros::spinOnce();
+37     loop\_rate.sleep();
+38   \}
+39 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{oculus-\/drift.\+cpp@{oculus-\/drift.\+cpp}!pub\+\_\+left@{pub\+\_\+left}}
+\index{pub\+\_\+left@{pub\+\_\+left}!oculus-\/drift.\+cpp@{oculus-\/drift.\+cpp}}
+\subsubsection[{\texorpdfstring{pub\+\_\+left}{pub_left}}]{\setlength{\rightskip}{0pt plus 5cm}image\+\_\+transport\+::\+Publisher pub\+\_\+left}\hypertarget{oculus-drift_8cpp_a1d96cf0c556aa6b5ba7b3b7ad43ca252}{}\label{oculus-drift_8cpp_a1d96cf0c556aa6b5ba7b3b7ad43ca252}
+\index{oculus-\/drift.\+cpp@{oculus-\/drift.\+cpp}!pub\+\_\+right@{pub\+\_\+right}}
+\index{pub\+\_\+right@{pub\+\_\+right}!oculus-\/drift.\+cpp@{oculus-\/drift.\+cpp}}
+\subsubsection[{\texorpdfstring{pub\+\_\+right}{pub_right}}]{\setlength{\rightskip}{0pt plus 5cm}image\+\_\+transport\+::\+Publisher pub\+\_\+right}\hypertarget{oculus-drift_8cpp_a69feb6a1df472e1ccf35b35d4f63edd2}{}\label{oculus-drift_8cpp_a69feb6a1df472e1ccf35b35d4f63edd2}

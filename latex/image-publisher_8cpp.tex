@@ -1,0 +1,50 @@
+\hypertarget{image-publisher_8cpp}{}\section{/home/lukasz/zros/src/oculus-\/drift/src/image-\/publisher.cpp File Reference}
+\label{image-publisher_8cpp}\index{/home/lukasz/zros/src/oculus-\/drift/src/image-\/publisher.\+cpp@{/home/lukasz/zros/src/oculus-\/drift/src/image-\/publisher.\+cpp}}
+{\ttfamily \#include $<$ros/ros.\+h$>$}\\*
+{\ttfamily \#include $<$image\+\_\+transport/image\+\_\+transport.\+h$>$}\\*
+{\ttfamily \#include $<$opencv2/highgui/highgui.\+hpp$>$}\\*
+{\ttfamily \#include $<$cv\+\_\+bridge/cv\+\_\+bridge.\+h$>$}\\*
+Include dependency graph for image-\/publisher.cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{image-publisher_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{image-publisher_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{image-\/publisher.\+cpp@{image-\/publisher.\+cpp}!main@{main}}
+\index{main@{main}!image-\/publisher.\+cpp@{image-\/publisher.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{image-publisher_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{image-publisher_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+\begin{DoxyCode}
+22 \{
+23   ros::init(argc, argv, \textcolor{stringliteral}{"image\_publisher"});
+24   ros::NodeHandle nh;
+25   image\_transport::ImageTransport it(nh);
+26   image\_transport::Publisher pub = it.advertise(\textcolor{stringliteral}{"left/image\_raw"}, 1);
+27   image\_transport::Publisher pub2 = it.advertise(\textcolor{stringliteral}{"right/image\_raw"}, 1);
+28   cv::Mat image = cv::imread(argv[1], CV\_LOAD\_IMAGE\_COLOR);
+29   cv::waitKey(30);
+30   sensor\_msgs::ImagePtr msg = cv\_bridge::CvImage(std\_msgs::Header(), \textcolor{stringliteral}{"bgr8"}, image).toImageMsg();
+31 
+32   ros::Rate loop\_rate(5);
+33   \textcolor{keywordflow}{while} (nh.ok()) \{
+34     pub.publish(msg);
+35     pub2.publish(msg);
+36     ros::spinOnce();
+37     loop\_rate.sleep();
+38   \}
+39 \}
+\end{DoxyCode}

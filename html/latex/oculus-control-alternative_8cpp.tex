@@ -1,0 +1,171 @@
+\hypertarget{oculus-control-alternative_8cpp}{}\section{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/control-\/alternative.cpp File Reference}
+\label{oculus-control-alternative_8cpp}\index{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/control-\/alternative.\+cpp@{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/control-\/alternative.\+cpp}}
+{\ttfamily \#include $<$ros/console.\+h$>$}\\*
+{\ttfamily \#include $<$tf/transform\+\_\+broadcaster.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/\+Pose\+Stamped.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/\+Quaternion.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$thread$>$}\\*
+{\ttfamily \#include $<$chrono$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$termios.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Core$>$}\\*
+{\ttfamily \#include $<$mav\+\_\+msgs/conversions.\+h$>$}\\*
+{\ttfamily \#include $<$mav\+\_\+msgs/default\+\_\+topics.\+h$>$}\\*
+{\ttfamily \#include $<$ros/ros.\+h$>$}\\*
+{\ttfamily \#include $<$std\+\_\+srvs/\+Empty.\+h$>$}\\*
+{\ttfamily \#include $<$trajectory\+\_\+msgs/\+Multi\+D\+O\+F\+Joint\+Trajectory.\+h$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+Include dependency graph for oculus-\/control-\/alternative.cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oculus-control-alternative_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Vector3d \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\+\_\+position} (0.\+0, 0.\+0, 2.\+0)
+\item 
+void \hyperlink{oculus-control-alternative_8cpp_a570d60ef77ebe021853fd13c864ab969}{orientation\+Callback} (const geometry\+\_\+msgs\+::\+Quaternion\+::\+Const\+Ptr msg)
+\item 
+int \hyperlink{oculus-control-alternative_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+ros\+::\+Publisher \hyperlink{oculus-control-alternative_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{pub\+\_\+traj}
+\item 
+trajectory\+\_\+msgs\+::\+Multi\+D\+O\+F\+Joint\+Trajectory \hyperlink{oculus-control-alternative_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\+\_\+msg}
+\item 
+geometry\+\_\+msgs\+::\+Quaternion \hyperlink{oculus-control-alternative_8cpp_a71181c8a89676b15be113f74f57c9f23}{quat}
+\item 
+float \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed} = 0.\+1
+\item 
+double \hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\+\_\+yaw} = 0.\+0
+\item 
+double \hyperlink{oculus-control-alternative_8cpp_a6f2a069eeaa873686f0991fe351fec51}{old\+\_\+yaw} = 0.\+0
+\begin{DoxyCompactList}\small\item\em The desired\+\_\+yaw. \end{DoxyCompactList}\item 
+float \hyperlink{oculus-control-alternative_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninety\+Deg\+In\+Rad} = 1.\+5708
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}!desired\+\_\+position@{desired\+\_\+position}}
+\index{desired\+\_\+position@{desired\+\_\+position}!oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}}
+\subsubsection[{\texorpdfstring{desired\+\_\+position(0.\+0, 0.\+0, 2.\+0)}{desired_position(0.0, 0.0, 2.0)}}]{\setlength{\rightskip}{0pt plus 5cm}Eigen\+::\+Vector3d desired\+\_\+position (
+\begin{DoxyParamCaption}
+\item[{0.}]{0, }
+\item[{0.}]{0, }
+\item[{2.}]{0}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{}\label{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}
+\index{oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}!main@{main}}
+\index{main@{main}!oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-control-alternative_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{oculus-control-alternative_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+\begin{DoxyCode}
+65 \{
+66   ros::init(argc, argv, \textcolor{stringliteral}{"oculus\_control\_alternative"});
+67   ros::NodeHandle nh;
+68 
+69   \hyperlink{oculus-control-alternative_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\_msg}.header.stamp = ros::Time::now();
+70 
+71   ros::Subscriber sub\_orient = nh.subscribe(\textcolor{stringliteral}{"/oculus/orientation"}, 1, 
+      \hyperlink{oculus-control-alternative_8cpp_a570d60ef77ebe021853fd13c864ab969}{orientationCallback});
+72 
+73   \hyperlink{oculus-control-alternative_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{pub\_traj} = nh.advertise<trajectory\_msgs::MultiDOFJointTrajectory>(\textcolor{stringliteral}{"/firefly/command/trajectory"}, 
+      1);
+74 
+75   ros::Rate loop\_rate(5);
+76   \textcolor{keywordflow}{while} (nh.ok()) \{
+77 
+78     ros::spinOnce();
+79     loop\_rate.sleep();
+80   \}
+81 \}
+\end{DoxyCode}
+\index{oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}!orientation\+Callback@{orientation\+Callback}}
+\index{orientation\+Callback@{orientation\+Callback}!oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}}
+\subsubsection[{\texorpdfstring{orientation\+Callback(const geometry\+\_\+msgs\+::\+Quaternion\+::\+Const\+Ptr msg)}{orientationCallback(const geometry_msgs::Quaternion::ConstPtr msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void orientation\+Callback (
+\begin{DoxyParamCaption}
+\item[{const geometry\+\_\+msgs\+::\+Quaternion\+::\+Const\+Ptr}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-control-alternative_8cpp_a570d60ef77ebe021853fd13c864ab969}{}\label{oculus-control-alternative_8cpp_a570d60ef77ebe021853fd13c864ab969}
+
+\begin{DoxyCode}
+30 \{
+31   ROS\_INFO(\textcolor{stringliteral}{"Callback Success"});
+32 
+33   \textcolor{keywordflow}{if} (msg->y < -0.2) \{
+34     \hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} = \hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} - \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}/3;
+35   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (msg->y > 0.2) \{
+36     \hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} = \hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} + \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}/3;
+37   \}
+38 
+39   \textcolor{keywordflow}{if} (msg->x < -0.25) \{
+40     \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.x() = \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.x() + 
+      \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*cos(\hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+41     \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.y() = \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.y() + 
+      \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*sin(\hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+42   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (msg->x > 0.25) \{
+43     \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.x() = \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.x() - 
+      \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*cos(\hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+44     \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.y() = \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.y() - 
+      \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*sin(\hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+45   \}
+46 
+47   \textcolor{keywordflow}{if} (msg->z < -0.25) \{
+48     \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.x() = \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.x() + 
+      \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*cos(\hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}-\hyperlink{oculus-control-alternative_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninetyDegInRad});
+49     \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.y() = \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.y() + 
+      \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*sin(\hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}-\hyperlink{oculus-control-alternative_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninetyDegInRad});
+50   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (msg->z > 0.25) \{
+51     \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.x() = \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.x() - 
+      \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*cos(\hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}-\hyperlink{oculus-control-alternative_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninetyDegInRad});
+52     \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.y() = \hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position}.y() - 
+      \hyperlink{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}*sin(\hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}-\hyperlink{oculus-control-alternative_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninetyDegInRad});
+53   \}
+54 
+55   \hyperlink{oculus-control-alternative_8cpp_a6f2a069eeaa873686f0991fe351fec51}{old\_yaw} = \hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw};
+56   mav\_msgs::msgMultiDofJointTrajectoryFromPositionYaw(\hyperlink{oculus-control-alternative_8cpp_a33ebb53f44ddfc738d5914aed4017e53}{desired\_position},
+57       \hyperlink{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}, &\hyperlink{oculus-control-alternative_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\_msg});
+58   \hyperlink{oculus-control-alternative_8cpp_a71181c8a89676b15be113f74f57c9f23}{quat} = *msg;
+59   \hyperlink{oculus-control-alternative_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{pub\_traj}.publish(\hyperlink{oculus-control-alternative_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\_msg});
+60 
+61 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}!desired\+\_\+yaw@{desired\+\_\+yaw}}
+\index{desired\+\_\+yaw@{desired\+\_\+yaw}!oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}}
+\subsubsection[{\texorpdfstring{desired\+\_\+yaw}{desired_yaw}}]{\setlength{\rightskip}{0pt plus 5cm}double desired\+\_\+yaw = 0.\+0}\hypertarget{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}{}\label{oculus-control-alternative_8cpp_a03a69ef33d756512293e67791ab5f265}
+\index{oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}!ninety\+Deg\+In\+Rad@{ninety\+Deg\+In\+Rad}}
+\index{ninety\+Deg\+In\+Rad@{ninety\+Deg\+In\+Rad}!oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}}
+\subsubsection[{\texorpdfstring{ninety\+Deg\+In\+Rad}{ninetyDegInRad}}]{\setlength{\rightskip}{0pt plus 5cm}float ninety\+Deg\+In\+Rad = 1.\+5708}\hypertarget{oculus-control-alternative_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{}\label{oculus-control-alternative_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}
+\index{oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}!old\+\_\+yaw@{old\+\_\+yaw}}
+\index{old\+\_\+yaw@{old\+\_\+yaw}!oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}}
+\subsubsection[{\texorpdfstring{old\+\_\+yaw}{old_yaw}}]{\setlength{\rightskip}{0pt plus 5cm}double old\+\_\+yaw = 0.\+0}\hypertarget{oculus-control-alternative_8cpp_a6f2a069eeaa873686f0991fe351fec51}{}\label{oculus-control-alternative_8cpp_a6f2a069eeaa873686f0991fe351fec51}
+
+
+The desired\+\_\+yaw. 
+
+\index{oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}!pub\+\_\+traj@{pub\+\_\+traj}}
+\index{pub\+\_\+traj@{pub\+\_\+traj}!oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}}
+\subsubsection[{\texorpdfstring{pub\+\_\+traj}{pub_traj}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Publisher pub\+\_\+traj}\hypertarget{oculus-control-alternative_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{}\label{oculus-control-alternative_8cpp_a92b67ae724bc0d23b8e85e92e89403df}
+\index{oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}!quat@{quat}}
+\index{quat@{quat}!oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}}
+\subsubsection[{\texorpdfstring{quat}{quat}}]{\setlength{\rightskip}{0pt plus 5cm}geometry\+\_\+msgs\+::\+Quaternion quat}\hypertarget{oculus-control-alternative_8cpp_a71181c8a89676b15be113f74f57c9f23}{}\label{oculus-control-alternative_8cpp_a71181c8a89676b15be113f74f57c9f23}
+\index{oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}!speed@{speed}}
+\index{speed@{speed}!oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}}
+\subsubsection[{\texorpdfstring{speed}{speed}}]{\setlength{\rightskip}{0pt plus 5cm}float speed = 0.\+1}\hypertarget{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{}\label{oculus-control-alternative_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}
+\index{oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}!traj\+\_\+msg@{traj\+\_\+msg}}
+\index{traj\+\_\+msg@{traj\+\_\+msg}!oculus-\/control-\/alternative.\+cpp@{oculus-\/control-\/alternative.\+cpp}}
+\subsubsection[{\texorpdfstring{traj\+\_\+msg}{traj_msg}}]{\setlength{\rightskip}{0pt plus 5cm}trajectory\+\_\+msgs\+::\+Multi\+D\+O\+F\+Joint\+Trajectory traj\+\_\+msg}\hypertarget{oculus-control-alternative_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{}\label{oculus-control-alternative_8cpp_a090c0766fbb77862dd8cc0cca99d688b}

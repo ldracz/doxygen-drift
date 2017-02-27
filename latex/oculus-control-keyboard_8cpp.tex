@@ -1,0 +1,234 @@
+\hypertarget{oculus-control-keyboard_8cpp}{}\section{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/control-\/keyboard.cpp File Reference}
+\label{oculus-control-keyboard_8cpp}\index{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/control-\/keyboard.\+cpp@{/home/lukasz/zros/src/oculus-\/drift/src/oculus-\/control-\/keyboard.\+cpp}}
+{\ttfamily \#include $<$ros/console.\+h$>$}\\*
+{\ttfamily \#include $<$tf/transform\+\_\+broadcaster.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/\+Pose\+Stamped.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/\+Quaternion.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$thread$>$}\\*
+{\ttfamily \#include $<$chrono$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$termios.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Core$>$}\\*
+{\ttfamily \#include $<$mav\+\_\+msgs/conversions.\+h$>$}\\*
+{\ttfamily \#include $<$mav\+\_\+msgs/default\+\_\+topics.\+h$>$}\\*
+{\ttfamily \#include $<$ros/ros.\+h$>$}\\*
+{\ttfamily \#include $<$std\+\_\+srvs/\+Empty.\+h$>$}\\*
+{\ttfamily \#include $<$trajectory\+\_\+msgs/\+Multi\+D\+O\+F\+Joint\+Trajectory.\+h$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+Include dependency graph for oculus-\/control-\/keyboard.cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oculus-control-keyboard_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Vector3d \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\+\_\+position} (0.\+0, 0.\+0, 1.\+0)
+\begin{DoxyCompactList}\small\item\em The position the drone is expected to go to. \end{DoxyCompactList}\item 
+int \hyperlink{oculus-control-keyboard_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em The Main Function that runs the keyboard loop. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+ros\+::\+Publisher \hyperlink{oculus-control-keyboard_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{pub\+\_\+traj}
+\begin{DoxyCompactList}\small\item\em Publisher for the desired trajectory of the drone. \end{DoxyCompactList}\item 
+trajectory\+\_\+msgs\+::\+Multi\+D\+O\+F\+Joint\+Trajectory \hyperlink{oculus-control-keyboard_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\+\_\+msg}
+\begin{DoxyCompactList}\small\item\em The message variable that is published. \end{DoxyCompactList}\item 
+float \hyperlink{oculus-control-keyboard_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed} = 0.\+1
+\begin{DoxyCompactList}\small\item\em The speed at which the drone can move at. \end{DoxyCompactList}\item 
+float \hyperlink{oculus-control-keyboard_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninety\+Deg\+In\+Rad} = 1.\+5708
+\begin{DoxyCompactList}\small\item\em The value 90 degrees holds in radians (rounded) \end{DoxyCompactList}\item 
+double \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\+\_\+yaw} = 0.\+0
+\begin{DoxyCompactList}\small\item\em The yaw rotation expected of the drone to turn to (in radians) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}!desired\+\_\+position@{desired\+\_\+position}}
+\index{desired\+\_\+position@{desired\+\_\+position}!oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}}
+\subsubsection[{\texorpdfstring{desired\+\_\+position(0.\+0, 0.\+0, 1.\+0)}{desired_position(0.0, 0.0, 1.0)}}]{\setlength{\rightskip}{0pt plus 5cm}Eigen\+::\+Vector3d desired\+\_\+position (
+\begin{DoxyParamCaption}
+\item[{0.}]{0, }
+\item[{0.}]{0, }
+\item[{1.}]{0}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{}\label{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}
+
+
+The position the drone is expected to go to. 
+
+\index{oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}!main@{main}}
+\index{main@{main}!oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{oculus-control-keyboard_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{oculus-control-keyboard_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+The Main Function that runs the keyboard loop. 
+
+The terminal is cleared. When the terminal is active, it reads the key being pressed by the user. Based on what key is pressed the change needed in the desired trajectory will be calculated. This desired trajectory will then be published to the firefly drone. get the console in raw mode
+
+Setting a new line, then end of file 
+\begin{DoxyCode}
+51 \{
+52   ros::init(argc, argv, \textcolor{stringliteral}{"oculus\_keycontrol"});
+53   ros::NodeHandle nh;
+54   \hyperlink{oculus-control-keyboard_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\_msg}.header.stamp = ros::Time::now();
+55 
+56   \hyperlink{oculus-control-keyboard_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{pub\_traj} = nh.advertise<trajectory\_msgs::MultiDOFJointTrajectory>(\textcolor{stringliteral}{"/firefly/command/trajectory"}, 
+      1);
+57 
+58   \textcolor{keywordtype}{int} ch, oldch;
+59   \textcolor{keywordtype}{char} cheese;
+60   \textcolor{keywordtype}{int} kfd = 0;
+61   \textcolor{keyword}{struct }termios cooked, raw;
+62   \textcolor{keywordtype}{float} \hyperlink{oculus-control-keyboard_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed} = 0.05;
+63   \textcolor{keywordtype}{int} active = 0;
+64 
+65 
+66   \textcolor{keywordflow}{while}(1) \{
+67 
+69     tcgetattr(kfd, &cooked);
+70     memcpy(&raw, &cooked, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} termios));
+71     raw.c\_lflag &=~ (ICANON | ECHO);
+73     raw.c\_cc[VEOL] = 1;
+74     raw.c\_cc[VEOF] = 2;
+75     tcsetattr(kfd, TCSANOW, &raw);
+76 
+77     puts(\textcolor{stringliteral}{"Reading from keyboard"});
+78     puts(\textcolor{stringliteral}{"----Press X to activate/deactivate control-----------------"});
+79     puts(\textcolor{stringliteral}{"Use W,A,S,D to move the drone. Use Q,E to adjust height of the drone. R,F to rotate."});
+80 
+81     \textcolor{keywordflow}{if}(read(kfd, &cheese, 1) < 0)
+82     \{
+83       perror(\textcolor{stringliteral}{"read():"});
+84       exit(-1);
+85     \}
+86 
+87 
+88     \textcolor{keywordflow}{switch} (cheese) \{
+89       \textcolor{keywordflow}{case} \textcolor{charliteral}{'x'}:
+90       \textcolor{keywordflow}{case} \textcolor{charliteral}{'X'}:
+91         \textcolor{keywordflow}{if}(active == 0) \{
+92           active = 1;
+93         \} \textcolor{keywordflow}{else} \{
+94           active = 0;
+95         \}
+96       \textcolor{keywordflow}{case} \textcolor{charliteral}{'a'}:
+97       \textcolor{keywordflow}{case} \textcolor{charliteral}{'A'}:
+98         ROS\_INFO(\textcolor{stringliteral}{"A"});
+99         \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() = \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() - speed*cos(
+      \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}-\hyperlink{oculus-control-keyboard_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninetyDegInRad});
+100         \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() = \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() - speed*sin(
+      \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}-\hyperlink{oculus-control-keyboard_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninetyDegInRad});
+101         \textcolor{keywordflow}{goto} PUB;
+102         \textcolor{keywordflow}{break};
+103       \textcolor{keywordflow}{case} \textcolor{charliteral}{'s'}:
+104       \textcolor{keywordflow}{case} \textcolor{charliteral}{'S'}:
+105         ROS\_INFO(\textcolor{stringliteral}{"S"});
+106         \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() = \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() - speed*cos(
+      \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+107         \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() = \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() - speed*sin(
+      \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+108         \textcolor{keywordflow}{goto} PUB;
+109         \textcolor{keywordflow}{break};
+110       \textcolor{keywordflow}{case} \textcolor{charliteral}{'d'}:
+111       \textcolor{keywordflow}{case} \textcolor{charliteral}{'D'}:
+112         ROS\_INFO(\textcolor{stringliteral}{"D"});
+113         \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() = \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() + speed*cos(
+      \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}-\hyperlink{oculus-control-keyboard_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninetyDegInRad});
+114         \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() = \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() + speed*sin(
+      \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}-\hyperlink{oculus-control-keyboard_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{ninetyDegInRad});
+115         \textcolor{keywordflow}{goto} PUB;
+116         \textcolor{keywordflow}{break};
+117       \textcolor{keywordflow}{case} \textcolor{charliteral}{'w'}:
+118       \textcolor{keywordflow}{case} \textcolor{charliteral}{'W'}:
+119         ROS\_INFO(\textcolor{stringliteral}{"W"});
+120         \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() = \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.x() + speed*cos(
+      \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+121         \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() = \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.y() + speed*sin(
+      \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw});
+122         \textcolor{keywordflow}{goto} PUB;
+123         \textcolor{keywordflow}{break};
+124       \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}:
+125       \textcolor{keywordflow}{case} \textcolor{charliteral}{'Q'}:
+126         ROS\_INFO(\textcolor{stringliteral}{"Q"});
+127         \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.z() = \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.z() + 
+      \hyperlink{oculus-control-keyboard_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed};
+128         \textcolor{keywordflow}{goto} PUB;
+129         \textcolor{keywordflow}{break};
+130       \textcolor{keywordflow}{case} \textcolor{charliteral}{'e'}:
+131       \textcolor{keywordflow}{case} \textcolor{charliteral}{'E'}:
+132         ROS\_INFO(\textcolor{stringliteral}{"E"});
+133         \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.z() = \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position}.z() - 
+      \hyperlink{oculus-control-keyboard_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed};
+134         \textcolor{keywordflow}{goto} PUB;
+135         \textcolor{keywordflow}{break};
+136       \textcolor{keywordflow}{case} \textcolor{charliteral}{'r'}:
+137       \textcolor{keywordflow}{case} \textcolor{charliteral}{'R'}:
+138         ROS\_INFO(\textcolor{stringliteral}{"R"});
+139         \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} = \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} + \hyperlink{oculus-control-keyboard_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed};
+140         \textcolor{keywordflow}{goto} PUB;
+141         \textcolor{keywordflow}{break};
+142       \textcolor{keywordflow}{case} \textcolor{charliteral}{'f'}:
+143       \textcolor{keywordflow}{case} \textcolor{charliteral}{'F'}:
+144         ROS\_INFO(\textcolor{stringliteral}{"F"});
+145         \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} = \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw} - \hyperlink{oculus-control-keyboard_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{speed};
+146         \textcolor{keywordflow}{goto} PUB;
+147         \textcolor{keywordflow}{break};
+148 
+149       PUB:
+150         \textcolor{keywordflow}{if} (active) \{
+151           ROS\_INFO(\textcolor{stringliteral}{"publishing"});
+152               mav\_msgs::msgMultiDofJointTrajectoryFromPositionYaw(
+      \hyperlink{oculus-control-keyboard_8cpp_a608d9948c063034b7605598daaeccc3e}{desired\_position},
+153                   \hyperlink{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{desired\_yaw}, &\hyperlink{oculus-control-keyboard_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\_msg});
+154           \hyperlink{oculus-control-keyboard_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{pub\_traj}.publish(\hyperlink{oculus-control-keyboard_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{traj\_msg});
+155         \}
+156       \}
+157     \}
+158 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}!desired\+\_\+yaw@{desired\+\_\+yaw}}
+\index{desired\+\_\+yaw@{desired\+\_\+yaw}!oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}}
+\subsubsection[{\texorpdfstring{desired\+\_\+yaw}{desired_yaw}}]{\setlength{\rightskip}{0pt plus 5cm}double desired\+\_\+yaw = 0.\+0}\hypertarget{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}{}\label{oculus-control-keyboard_8cpp_a03a69ef33d756512293e67791ab5f265}
+
+
+The yaw rotation expected of the drone to turn to (in radians) 
+
+\index{oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}!ninety\+Deg\+In\+Rad@{ninety\+Deg\+In\+Rad}}
+\index{ninety\+Deg\+In\+Rad@{ninety\+Deg\+In\+Rad}!oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}}
+\subsubsection[{\texorpdfstring{ninety\+Deg\+In\+Rad}{ninetyDegInRad}}]{\setlength{\rightskip}{0pt plus 5cm}float ninety\+Deg\+In\+Rad = 1.\+5708}\hypertarget{oculus-control-keyboard_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}{}\label{oculus-control-keyboard_8cpp_a2cce9b626fdb3b1f78baad955bd5b609}
+
+
+The value 90 degrees holds in radians (rounded) 
+
+\index{oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}!pub\+\_\+traj@{pub\+\_\+traj}}
+\index{pub\+\_\+traj@{pub\+\_\+traj}!oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}}
+\subsubsection[{\texorpdfstring{pub\+\_\+traj}{pub_traj}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Publisher pub\+\_\+traj}\hypertarget{oculus-control-keyboard_8cpp_a92b67ae724bc0d23b8e85e92e89403df}{}\label{oculus-control-keyboard_8cpp_a92b67ae724bc0d23b8e85e92e89403df}
+
+
+Publisher for the desired trajectory of the drone. 
+
+\index{oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}!speed@{speed}}
+\index{speed@{speed}!oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}}
+\subsubsection[{\texorpdfstring{speed}{speed}}]{\setlength{\rightskip}{0pt plus 5cm}float speed = 0.\+1}\hypertarget{oculus-control-keyboard_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}{}\label{oculus-control-keyboard_8cpp_a7f7e4724cf57d59513b39c5ecc81adc8}
+
+
+The speed at which the drone can move at. 
+
+\index{oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}!traj\+\_\+msg@{traj\+\_\+msg}}
+\index{traj\+\_\+msg@{traj\+\_\+msg}!oculus-\/control-\/keyboard.\+cpp@{oculus-\/control-\/keyboard.\+cpp}}
+\subsubsection[{\texorpdfstring{traj\+\_\+msg}{traj_msg}}]{\setlength{\rightskip}{0pt plus 5cm}trajectory\+\_\+msgs\+::\+Multi\+D\+O\+F\+Joint\+Trajectory traj\+\_\+msg}\hypertarget{oculus-control-keyboard_8cpp_a090c0766fbb77862dd8cc0cca99d688b}{}\label{oculus-control-keyboard_8cpp_a090c0766fbb77862dd8cc0cca99d688b}
+
+
+The message variable that is published. 
+
